@@ -1,0 +1,15 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+home:
+    path:       /
+    controller: App\Controller\MainPageController::renderMainPage
+
+new_team:
+    path:       /newTeam
+    controller: App\Controller\TeamController::renderNewTeam
+
+increase_shot:
+    path: /aa/{teamName}/increase
+    controller: App\Controller\TeamController::increaseShotsOfTeam

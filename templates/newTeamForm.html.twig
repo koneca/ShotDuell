@@ -1,0 +1,55 @@
+{# templates/newTeamForm.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Neues Team hinzu&uuml;gen{% endblock %}
+
+{% block body %}
+<div id="configDialog" title="Neues Team hinzuf&uuml;gen">
+<div id="config-addTeam" class="configDialog">
+<h2>Ein neues Team hinzuf&uuml;gen</h2>
+  {% form_theme newTeam_form 'bootstrap_5_horizontal_layout.html.twig' %}
+    {{ form_start(newTeam_form) }}
+    <div class="form-errors">
+        {{ form_errors(newTeam_form) }}
+        {{ form_help(newTeam_form) }}
+    </div>
+    <div class="formRow">
+      <div class="formCell">
+        {{ form_label(newTeam_form.teamName)}}
+      </div>
+      <div class="formCell">
+        {{ form_widget(newTeam_form.teamName, {
+          attr : {
+            placeholder: 'Supersuff'
+          }
+        }) }}
+      </div>
+    </div>
+    <div class="formRow">
+      <div class="formCell">
+        {{ form_label(newTeam_form.color) }}
+      </div>
+      <div class="formCell">
+        {{ form_widget(newTeam_form.color) }}
+      </div>
+    </div>
+    <div class="formRow">
+      <div class="formCell">
+        {{ form_widget(newTeam_form.save, {
+          attr: {
+            class: 'btn_lg'
+          }
+        }) }}
+      </div>
+    </div>
+    {{ form_rest(newTeam_form) }}
+
+    {{ form_end(newTeam_form) }}
+</div>
+<div id="config-deleteTeam" class="configDialog">
+<h2>Ein Team l&ouml;schen</h2>
+huhu
+</div>
+</div>
+{% endblock %}

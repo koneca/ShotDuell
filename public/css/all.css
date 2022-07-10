@@ -1,0 +1,157 @@
+/* global */
+
+@font-face {
+  font-family: 'Codystar';
+  src: URL('../Codystar-Regular.ttf') format('truetype');
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  padding:0px;
+  margin: 0px;
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-size:100%;
+  background-image: url("/images/flames_back.gif");
+  font-family: monospace;
+  font-size: 20px;
+  color: white;
+}
+
+#wrapper {
+  background: #111;
+  border-radius: 10px;
+  border:1px dashed red;
+  width: 85%;
+  height: 800px;
+  margin: 20px auto;
+}
+
+#bars_container {
+  min-height:150px;
+  display: flex;
+  position:absolute;
+  min-width: 120px;
+  bottom: 13%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left:50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  /* border: 1px dashed green; */
+  padding: 0px;
+}
+
+#left
+  {
+    height: auto;
+    width:auto;
+    position: absolute;
+    left:0px;
+    top: 20%;
+  }
+  #right
+  {
+    height: auto;
+    width:auto;
+    position: absolute;
+    right:0px;
+    bottom: 5%;
+  }
+
+.configDialog
+{
+  padding: 20px;
+  background-color: #000;
+  display: inline-block;
+  margin: 10px;
+}
+#glass_container
+{
+  display: inline-block;
+  margin-left:10px;
+  bottom:0px;
+  align-self: flex-end;
+}
+
+  .glass_header {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom:10px;
+    font-family: Codystar;
+  }
+
+.glass_bottom
+{
+  height: 30px;
+  width: 100px;
+  background-color: lightgray;
+  border: 3px solid  lightgray;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
+}
+
+.glass_middle
+{
+  height: 1px;
+  width: 100px;
+  background-color: green;
+  border-left: 3px solid  lightgray;
+  border-right: 3px solid  lightgray;
+}
+.glass_top
+{
+  height: 10px;
+  width: 100px;
+  border-left: 3px solid lightgray;
+  border-top: 3px solid lightgray;
+  border-right: 3px solid  lightgray;
+}
+.glass_name{
+  text-align: center;
+  padding-top:5px;
+}
+
+/* Variable part */
+#glassMid_1 { height:100px }
+#glassMid_2 {background-color:red; height:400px }
+#glassMid_3 {background-color:blue; height:300px}
+
+#configDialog {
+  /* display: none; */
+  width : fit-content;
+  height : auto;
+  border: 1px dashed green;
+  padding: 20px 30px;
+}
+
+#team_form small
+{
+  padding-left : 10px;
+  font-size: 12px;
+}
+
+.formCell label {
+  margin-right: 10px;
+}
+
+.formCell label::after{
+  content : ":";
+}
+
+.form-errors{
+  min-height:50px;
+  text-align: center;
+  color: red;
+}
+.formRow{
+  display:table-row;
+  margin: 10px;
+}
+.formCell{
+  display: table-cell;
+  padding:10px 5px;
+}
