@@ -1,0 +1,14 @@
+{# templates/newTeamForm.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Chart{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        {# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+        {{ render_chart(chart, {'class': 'shots-chart'}) }}
+    </div>
+
+
+{% endblock %}

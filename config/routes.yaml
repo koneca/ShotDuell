@@ -10,6 +10,18 @@ new_team:
     path:       /newTeam
     controller: App\Controller\TeamController::renderNewTeam
 
+delete_team:
+    path:       /{id}/deleteTeam
+    controller: App\Controller\TeamController::renderDeleteTeam
+
 increase_shot:
-    path: /aa/{teamName}/increase
+    path: /{id}/increase
     controller: App\Controller\TeamController::increaseShotsOfTeam
+
+update_teams:
+    path: /update/teams
+    controller: App\Controller\TeamController::getUpdatedTeams
+
+chart_view:
+    path: /chartView
+    controller: App\Controller\ChartController::chartShow

@@ -2,35 +2,36 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Feuerwehr Saufi{% endblock %}
+{% block title %}Feuerwehr ShotsDuell{% endblock %}
 
 {% block body %}
 <div id="wrapper">
     <div id="bars_container">
      {% for team in teams %}
-        <div id="glass_container" href="{{ path('increase_shot', {teamName: team.id}) }}">
-            <div class="glass_header">{{team.shotsCount}}</div>
+        <div id="glass_container" href="{{ path('increase_shot', {id: team.id}) }}">
+        <div>
+            <div class="glass_header" id="score_team_{{ team.id }}">{{team.shotsCount}}</div>
             <div class="glass_top"></div>
             <div id="scoreHeight_team_{{ team.id }}" class="glass_middle" style="height: {{ team.shotsCount|genHeight() }}px; background-color: {{ team.color}}"></div>
             <div class="glass_bottom"></div>
             <div class="glass_name">{{ team.teamName|raw }}</div>
+            </div>
         </div>
      {% endfor %}
     </div>
-    <div id="left"><img src="images/snoop.gif"></div>
+    <div id="left">
+      <a href="{{ path('chart_view') }}">
+        <img src="images/snoop.gif">
+      </a>
+    </div>
     <div id="right">
       <a href="{{ path('new_team') }}">
         <img src="{{ asset('images/feuerwehrman_dabb.png') }}" height="300">
       </a>
     </div>
-    <h1>Your lucky number is {{ number }}</h1>
 </div>
 
 <script>
-{/* const eventSource = new EventSource("{{ mercure('/auctions-1')|escape('js') }}");
-eventSource.onmessage = event => {
-    // Will be called every time an update is published by the server
-    console.log(JSON.parse(event.data));
-} */}
+
 </script>
 {% endblock %}

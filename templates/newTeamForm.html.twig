@@ -2,13 +2,13 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Neues Team hinzu&uuml;gen{% endblock %}
+{% block title %}Einstellungen{% endblock %}
 
 {% block body %}
-<div id="configDialog" title="Neues Team hinzuf&uuml;gen">
-<div id="config-addTeam" class="configDialog">
-<h2>Ein neues Team hinzuf&uuml;gen</h2>
-  {% form_theme newTeam_form 'bootstrap_5_horizontal_layout.html.twig' %}
+<div id="configContainer">
+  <div id="configDialog">
+  <h2>Ein neues Team hinzuf&uuml;gen</h2>
+    {% form_theme newTeam_form 'bootstrap_5_horizontal_layout.html.twig' %}
     {{ form_start(newTeam_form) }}
     <div class="form-errors">
         {{ form_errors(newTeam_form) }}
@@ -38,7 +38,7 @@
       <div class="formCell">
         {{ form_widget(newTeam_form.save, {
           attr: {
-            class: 'btn_lg'
+            class: 'btn-secondary'
           }
         }) }}
       </div>
@@ -46,10 +46,16 @@
     {{ form_rest(newTeam_form) }}
 
     {{ form_end(newTeam_form) }}
-</div>
-<div id="config-deleteTeam" class="configDialog">
-<h2>Ein Team l&ouml;schen</h2>
-huhu
-</div>
+  </div>
+
+  <div id="configDialog">
+    <h2>Ein Team l&ouml;schen</h2>
+    <div class="btn-group-vertical">
+      {% for team in teams %}
+      
+        <a class="btn btn-danger" href="{{ path('delete_team', {id: team.id}) }}"><img height="16" src="images/trash.png"></img> {{team.teamName}}</a>
+      {% endfor %}
+      </div>
+  </div>
 </div>
 {% endblock %}

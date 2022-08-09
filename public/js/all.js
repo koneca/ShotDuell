@@ -14,7 +14,7 @@ $(document).ready(function() {
       method: 'POST',
       url: $link.attr('href')
     }).done(function(data) {
-        $(middle).css('height', middle.clientHeight + 4);
+        $(middle).css('height', middle.clientHeight + 6);
         var shots = Number($(header).html());
         shots ++;
         console.log(shots);
@@ -22,41 +22,55 @@ $(document).ready(function() {
     })
 
   });
+
+  
+  if(document.URL.includes("newTeam") ||
+      document.URL.includes("chart"))
+  {
+    console.log("not main page. Do not reload");
+    return;
+  }
+
+  setInterval(function(){
+    $.ajax({
+      url: "/update/teams",
+      method: "POST",
+      dataType: "json",
+      success: updateTeams
+    });
+  }, 2000);
 });
 
+function updateTeams(data)
+{
+  // console.log(data);
+  
+  var recCount = Object.keys(data).length;
+  var actCount = $('[id^="scoreHeight_team_"]').length;
+  
+  if(recCount != actCount)
+  {
+    location.reload();
+  }
 
-
-function openConfig(){
-    $( "#configDialog" ).dialog({
-        autoOpen: true,
-        draggable : false,
-        height: 400,
-        width: 600,
-        buttons: [
-            {
-                text: "Abbruch",
-                icon: "ui-icon-closethick",
-                click: function() {
-                  $( this ).dialog( "close" );
-                }
-           
-                // Uncommenting the following line would hide the text,
-                // resulting in the label being used as a tooltip
-                //showText: false
-            },
-            {
-              text: "Ok",
-              icon: "ui-icon-check",
-              click: function() {
-                $( this ).dialog( "close" );
-              }
-         
-              // Uncommenting the following line would hide the text,
-              // resulting in the label being used as a tooltip
-              //showText: false
-            }
-          ]
-    });
+  for( let team in data)
+  {
+    if(data.hasOwnProperty(team))
+    {
+      renderTeamHeight(team, data[team]);
+    }
+  }
+  //scoreHeight_team_{{ team.id }}
 }
 
-openConfig()
+function renderTeamHeight(team, cnt)
+{
+  var item = $("#scoreHeight_team_" + team).css("height", Number(cnt)* 6);
+  if(0 == item.length)
+  {
+    console.log("New team found: scoreHeight_team_" + team + " reloading!");
+    location.reload();
+    return;
+  }
+  $("#score_team_" + team).html(cnt);
+}

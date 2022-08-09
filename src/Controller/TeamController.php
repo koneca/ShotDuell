@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\SaufiTeam;
+use App\Entity\ShotsTeam;
+use App\Entity\ShotsStatistics;
 use App\Form\TeamFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,8 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Mercure\HubInterface;
 
 class TeamController extends AbstractController
 {
@@ -22,9 +21,12 @@ class TeamController extends AbstractController
     {
         $this->logger = $logger;
     }
+
     public function renderNewTeam(Request $request, EntityManagerInterface $em): Response
     {
-        $team = new SaufiTeam();
+        $team = new ShotsTeam();
+        $repository = $em->getRepository(ShotsTeam::class);
+        $teams = $repository->findAll();
         $newTeamForm = $this->createForm(TeamFormType::class, $team);
 
         $newTeamForm->handleRequest($request);
@@ -37,51 +39,62 @@ class TeamController extends AbstractController
             $team->setCreated(new \DateTime());
             $team->setShotsCount(0);
 
-            $repository = $em->getRepository(SaufiTeam::class);
             $repository->add($team);
 
-            return $this->redirectToRoute('home',
-                ['message' => $team->getTeamName(), 'created' => $team->getCreated()]);
+            return $this->redirectToRoute('home', [
+                'message' => $team->getTeamName(),
+                'created' => $team->getCreated()
+            ],);
         }
 
-        return $this->render('newTeamForm.html.twig', ['newTeam_form' => $newTeamForm->createView()]);
+        return $this->render('newTeamForm.html.twig', [
+            'newTeam_form' => $newTeamForm->createView(),
+            'teams' => $teams
+        ]);
+    }
+
+    public function renderDeleteTeam(Request $request, ShotsTeam $team, EntityManagerInterface $em)
+    {
+        $repository = $em->getRepository(ShotsTeam::class);
+        $teamId = $team->getId();
+        $repository->remove($team);
+        $em->flush();
+
+        $repository = $em->getRepository(ShotsStatistics::class);
+        $repository->remove($teamId);
+        $em->flush();
+        return $this->redirectToRoute('home');
     }
     
-    public function increaseShotsOfTeam(SaufiTeam $teamName, EntityManagerInterface $em)
+    public function increaseShotsOfTeam(ShotsTeam $team, EntityManagerInterface $em)
     {
-        $teamName->increaseShotsCount();
-        $repository = $em->getRepository(SaufiTeam::class);
-        $repository->update($teamName);
-        $this->logger->warning("got some team increase: ".$teamName->getShotsCount());
+        $team->increaseShotsCount();
+        $team->setShotTime(new \DateTime());
+        $repository = $em->getRepository(ShotsTeam::class);
+        $repository->update($team);
+
+        $stat = new ShotsStatistics();
+        $stat->setShotsTeamId($team->getId());
+        $stat->setShotTime(new \DateTime());
+        $stat->setShotsCount($team->getShotsCount());
+        $repository = $em->getRepository(ShotsStatistics::class);
+        $repository->add($stat);
+        
+        $this->logger->warning("got some team increase: ".$team->getShotsCount());
         return $this->redirectToRoute('home');
     }
 
-    /**
-     * @throws \JsonException
-     */
-    #[Route("auctions/{id}/bid", name: "make-bid", methods: ["POST"])]
-    public function __invoke(Request $request, HubInterface $hub): Response
+    public function getUpdatedTeams(Request $request, EntityManagerInterface $em) : response
     {
-        $auctionId = $request->attributes->get('id');
-        $body = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $repository = $em->getRepository(ShotsTeam::class);
+        $teams = $repository->findAll();
+        $teamsArray = [];
 
-        Assert::keyExists($body, 'bid');
-        $winnerBid = $body['bid'];
-
-        try {
-            $update = new Update(
-                'auctions-' . $auctionId,
-                json_encode([
-                    'winnerBid' => $winnerBid
-                ], JSON_THROW_ON_ERROR)
-            );
-
-            $hub->publish($update);
-        } catch (\Exception $e) {
-            die($e->getMessage());
+        foreach($teams as $team)
+        {
+            $teamsArray[$team->getId()] = $team->getShotsCount();
         }
-
-        return new Response('published!');
+        return new JsonResponse($teamsArray);
     }
 }
 ?>
