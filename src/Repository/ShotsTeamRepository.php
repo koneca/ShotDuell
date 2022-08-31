@@ -45,6 +45,15 @@ class ShotsTeamRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllOrdered(): array
+    {
+	
+	return $this->createQueryBuilder('s')
+	     ->orderBy('s.shotsCount', 'DESC')
+     	     ->getQuery()
+     	     ->getResult();
+    }
+
 //    /**
 //     * @return ShotsTeam[] Returns an array of ShotsTeam objects
 //     */

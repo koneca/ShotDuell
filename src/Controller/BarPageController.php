@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-class MainPageController extends AbstractController
+class BarPageController extends AbstractController
 {
     private $logger;
 
@@ -17,32 +17,23 @@ class MainPageController extends AbstractController
         $this->logger = $logger;
     }
 
-    public function renderMainPage(EntityManagerInterface $em): Response
+    public function renderBarPage(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(ShotsTeam::class);
         $teams = $repository->findAllOrdered();
 
 	// shorten teamnames
-	$count = 0;
-	$dispTeams = [];
         foreach($teams as $team)
 	{
-	    if($count == 9)
-	    {
-		break;
-	    }
             if(10 < strlen( $currTeam = $team->getTeamName()))
             {
                 // $currTeam = substr($currTeam, 0, 10) . "...";//"<br>".substr($currTeam, 10);
                 $team->setTeamName($currTeam);
 	    }
-	    array_push($dispTeams, $team);
-	    $count++;
-             
         } 
 
-        return $this->render('mainPage.html.twig', [
-            'teams' => $dispTeams
+        return $this->render('barPage.html.twig', [
+            'teams' => $teams
         ]);
     }
 };

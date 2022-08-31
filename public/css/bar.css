@@ -1,0 +1,80 @@
+/* global */
+
+@font-face {
+  font-family: 'Codystar';
+  src: URL('../Codystar-Regular.ttf') format('truetype');
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  padding:0px;
+  margin: 0px;
+  background: #000;
+  background-color: #000;
+  font-family: monospace;
+  font-size: 20px;
+  color: white;
+}
+
+h2 {
+  color: white;
+}
+
+#wrapper {
+  display:block;
+  background: #111;
+  border-radius: 10px;
+  border:1px dashed red;
+  width: 85%;
+  height: 90%;
+  margin: 20px auto;
+}
+
+#bars_container {
+  height:100%;
+  display: grid;
+  width: 100%;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  padding: 10px 50px 10px 50px;
+}
+
+#buttons
+  {
+    height: auto;
+    width:auto;
+    position: absolute;
+    left:40%;
+    bottom: 30px;
+  }
+
+#glass_container
+{
+  width: 100px;
+}
+
+  .glass_header {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom:10px;
+    font-family: Codystar;
+  }
+
+.glass_middle
+{
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  border: 3px solid  lightgray;
+  border-radius: 50px;
+}
+.glass_name{
+  text-align: center;
+  padding-top:5px;
+  color: white;
+  line-height: 20px;
+  height: 50px;
+  font-size: 20px;
+}
+

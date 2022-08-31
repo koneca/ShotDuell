@@ -5,6 +5,9 @@
 {% block title %}Feuerwehr ShotsDuell{% endblock %}
 
 {% block body %}
+<div id="banner">
+<a href="{{ path('bar_view')}}"><img src="{{ asset('images/Banner.png') }}" height="120"></a>
+</div>
 <div id="wrapper">
     <div id="bars_container">
      {% for team in teams %}

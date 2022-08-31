@@ -25,3 +25,7 @@ update_teams:
 chart_view:
     path: /chartView
     controller: App\Controller\ChartController::chartShow
+
+bar_view:
+    path: /barView
+    controller: App\Controller\BarPageController::renderBarPage

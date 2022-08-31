@@ -11,6 +11,9 @@ doctrine:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
 
+parameters:
+  debug_toolbar: false
+
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false

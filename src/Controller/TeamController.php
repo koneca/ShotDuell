@@ -41,7 +41,7 @@ class TeamController extends AbstractController
 
             $repository->add($team);
 
-            return $this->redirectToRoute('home', [
+            return $this->redirectToRoute('bar_view', [
                 'message' => $team->getTeamName(),
                 'created' => $team->getCreated()
             ],);

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220630174019 extends AbstractMigration
+final class Version20220831064451 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,6 +21,8 @@ final class Version20220630174019 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE saufi_team (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, team_name VARCHAR(100) NOT NULL, color VARCHAR(8) NOT NULL, shots_count SMALLINT DEFAULT 0 NOT NULL, created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, shot_time DATETIME DEFAULT NULL)');
+        $this->addSql('CREATE TABLE shots_statistics (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, team_id SMALLINT NOT NULL, shots_count SMALLINT DEFAULT 0 NOT NULL, shot_time DATETIME DEFAULT NULL)');
+        $this->addSql('CREATE TABLE shots_team (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, team_name VARCHAR(100) NOT NULL, color VARCHAR(8) NOT NULL, shots_count SMALLINT DEFAULT 0 NOT NULL, created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, shot_time DATETIME DEFAULT NULL)');
         $this->addSql('CREATE TABLE messenger_messages (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body CLOB NOT NULL, headers CLOB NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL)');
         $this->addSql('CREATE INDEX IDX_75EA56E0FB7336F0 ON messenger_messages (queue_name)');
         $this->addSql('CREATE INDEX IDX_75EA56E0E3BD61CE ON messenger_messages (available_at)');
@@ -31,6 +33,8 @@ final class Version20220630174019 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP TABLE saufi_team');
+        $this->addSql('DROP TABLE shots_statistics');
+        $this->addSql('DROP TABLE shots_team');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }

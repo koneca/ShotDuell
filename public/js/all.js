@@ -2,7 +2,7 @@
 
 
 $(document).ready(function() {
-  $("[id=glass_container]"). on('dblclick', function(e) {
+  $("[id=glass_container]"). on('click', function(e) {
     e.preventDefault();
 
     var $link = $(e.currentTarget);
@@ -14,7 +14,10 @@ $(document).ready(function() {
       method: 'POST',
       url: $link.attr('href')
     }).done(function(data) {
-        $(middle).css('height', middle.clientHeight + 6);
+	if(! document.URL.includes("barView"))
+	{
+           $(middle).css('height', middle.clientHeight + 8);
+	}
         var shots = Number($(header).html());
         shots ++;
         console.log(shots);
@@ -65,7 +68,11 @@ function updateTeams(data)
 
 function renderTeamHeight(team, cnt)
 {
-  var item = $("#scoreHeight_team_" + team).css("height", Number(cnt)* 6);
+  var item = $("#scoreHeight_team_" + team);
+  if(! document.URL.includes("barView"))
+  {
+  	item.css("height", Number(cnt)* 8);
+  }
   if(0 == item.length)
   {
     console.log("New team found: scoreHeight_team_" + team + " reloading!");
