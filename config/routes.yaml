@@ -28,4 +28,4 @@ chart_view:
 
 bar_view:
     path: /barView
-    controller: App\Controller\BarPageController::renderBarPage
+    controller: App\Controller\BarViewController::renderBarView

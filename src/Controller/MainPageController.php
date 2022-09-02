@@ -25,7 +25,8 @@ class MainPageController extends AbstractController
 	// shorten teamnames
 	$count = 0;
 	$dispTeams = [];
-        foreach($teams as $team)
+    
+    foreach($teams as $team)
 	{
 	    if($count == 9)
 	    {

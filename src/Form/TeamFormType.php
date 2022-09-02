@@ -15,7 +15,7 @@ class TeamFormType extends AbstractType
     {
         $builder
             ->add('teamName', TextType::class)
-            ->add('color', ColorType::class, ['help' => 'Bitte eine Farbe auswählen'])
+            ->add('color', ColorType::class, ['help' => 'Bitte eine Farbe auswählen', 'empty_data' => null])
             ->add('save', SubmitType::class, ['label' => 'Add'])
             ;
     }

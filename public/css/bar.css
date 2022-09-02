@@ -39,41 +39,41 @@ h2 {
   padding: 10px 50px 10px 50px;
 }
 
-#buttons
-  {
-    height: auto;
-    width:auto;
-    position: absolute;
-    left:40%;
-    bottom: 30px;
-  }
+#buttons {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  width:auto;
+  margin: 30px 0 30px 0;
+}
 
-#glass_container
-{
+#buttons .btn {
+  margin: 0 10px 0 10px;
+}
+
+#glass_container {
   width: 100px;
 }
 
-  .glass_header {
-    color: white;
-    text-align: center;
-    font-size: 50px;
-    margin-bottom:10px;
-    font-family: Codystar;
-  }
+.glass_header {
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  font-family: Codystar;
+}
 
-.glass_middle
-{
+.glass_middle {
   height: 100px;
   width: 100px;
   background-color: green;
   border: 3px solid  lightgray;
   border-radius: 50px;
 }
-.glass_name{
+.glass_name {
   text-align: center;
   padding-top:5px;
   color: white;
-  line-height: 20px;
+  line-height: 22px;
   height: 50px;
   font-size: 20px;
 }

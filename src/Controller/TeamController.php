@@ -35,13 +35,15 @@ class TeamController extends AbstractController
 
             $data = $newTeamForm->getData();
             $team->setTeamName($data->getTeamName());
-            $team->setColor(strval($data->getColor()));
+
+ 
+            $team->setColor($this->determineTeamColor(strval($data->getColor()), $teams));
             $team->setCreated(new \DateTime());
             $team->setShotsCount(0);
 
             $repository->add($team);
 
-            return $this->redirectToRoute('bar_view', [
+            return $this->redirectToRoute('home', [
                 'message' => $team->getTeamName(),
                 'created' => $team->getCreated()
             ],);
@@ -51,6 +53,19 @@ class TeamController extends AbstractController
             'newTeam_form' => $newTeamForm->createView(),
             'teams' => $teams
         ]);
+    }
+
+    private function determineTeamColor(string $color, $teams) : string
+    {
+        if( "#000000" == $color)
+        {
+            $rColor = strval(dechex(rand(0,255)));
+            $gColor = strval(dechex(rand(0,255)));
+            $bColor = strval(dechex(rand(0,255)));
+            $color = "#".$rColor.$gColor.$bColor;
+        }
+
+        return $color;
     }
 
     public function renderDeleteTeam(Request $request, ShotsTeam $team, EntityManagerInterface $em)
@@ -63,7 +78,7 @@ class TeamController extends AbstractController
         $repository = $em->getRepository(ShotsStatistics::class);
         $repository->remove($teamId);
         $em->flush();
-        return $this->redirectToRoute('home');
+        return $this->redirect($request->headers->get('referer'));
     }
     
     public function increaseShotsOfTeam(ShotsTeam $team, EntityManagerInterface $em)

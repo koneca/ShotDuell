@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-class BarPageController extends AbstractController
+class BarViewController extends AbstractController
 {
     private $logger;
 
@@ -17,7 +17,7 @@ class BarPageController extends AbstractController
         $this->logger = $logger;
     }
 
-    public function renderBarPage(EntityManagerInterface $em): Response
+    public function renderBarView(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(ShotsTeam::class);
         $teams = $repository->findAllOrdered();
@@ -32,7 +32,7 @@ class BarPageController extends AbstractController
 	    }
         } 
 
-        return $this->render('barPage.html.twig', [
+        return $this->render('barView.html.twig', [
             'teams' => $teams
         ]);
     }

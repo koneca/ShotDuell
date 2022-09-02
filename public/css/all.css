@@ -13,6 +13,7 @@ body{
   background-color: #000;
   background-repeat: no-repeat;
   background-size:100%;
+  background-attachment: fixed;
   background-image: url("/images/flames_back.gif");
   font-family: monospace;
   font-size: 20px;
@@ -71,16 +72,13 @@ h2 {
 
 #left
   {
-    height: auto;
-    width:auto;
     position: absolute;
     left: -60px;
     top: 20%;
   }
+
   #right
   {
-    height: auto;
-    width:auto;
     position: absolute;
     right: -60px;
     bottom: -40px;
@@ -137,11 +135,6 @@ h2 {
   font-size: 20px;
 }
 
-/* Variable part */
-#glassMid_1 { height:100px }
-#glassMid_2 {background-color:red; height:400px }
-#glassMid_3 {background-color:blue; height:300px}
-
 #configDialog
 {
   display: inline-block;
@@ -162,7 +155,6 @@ h2 {
 }
 
 #configContainer {
-  /* display: none; */
   width : auto;
   height : auto;
 }
