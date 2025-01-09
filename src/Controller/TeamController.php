@@ -43,7 +43,8 @@ class TeamController extends AbstractController
 
             $repository->add($team);
 
-            return $this->redirectToRoute('home', [
+	    //return $this->redirect($request->headers->get('referer'));
+            return $this->redirectToRoute('bar_view', [
                 'message' => $team->getTeamName(),
                 'created' => $team->getCreated()
             ],);
@@ -102,12 +103,18 @@ class TeamController extends AbstractController
     public function getUpdatedTeams(Request $request, EntityManagerInterface $em) : response
     {
         $repository = $em->getRepository(ShotsTeam::class);
-        $teams = $repository->findAll();
-        $teamsArray = [];
+        $teams = $repository->findAllOrdered();
+	$teamsArray = [];
+	$count = 0;
 
         foreach($teams as $team)
-        {
-            $teamsArray[$team->getId()] = $team->getShotsCount();
+	{
+	//    if($count == 10)
+	    {
+	//        break;
+	    }
+	    array_push($teamsArray, [$team->getId(), $team->getShotsCount()]);
+	//    $count++;
         }
         return new JsonResponse($teamsArray);
     }

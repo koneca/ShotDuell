@@ -20,7 +20,7 @@ class BarViewController extends AbstractController
     public function renderBarView(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(ShotsTeam::class);
-        $teams = $repository->findAllOrdered();
+        $teams = $repository->findAll();
 
 	// shorten teamnames
         foreach($teams as $team)

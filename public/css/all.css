@@ -10,11 +10,11 @@ body{
   height: 100%;
   padding:0px;
   margin: 0px;
-  background-color: #000;
   background-repeat: no-repeat;
   background-size:100%;
   background-attachment: fixed;
-  background-image: url("/images/flames_back.gif");
+  background-color: #0000FF;
+  background-image: url("/images/fyGr.gif");
   font-family: monospace;
   font-size: 20px;
   color: white;
@@ -27,12 +27,18 @@ h2 {
 #banner
 {
   z-index: 999;
-  background-color: #444;
+/*  background-color: #444;*/
   position: absolute;
   top:10px;
   right: 20px;
   opacity: 0.77;
+/*  border-radius: 15px; */
+}
+
+#banner img
+{
   border-radius: 15px;
+  border: 2px solid #555;
 }
 
 #delTeamsGrid {
@@ -48,7 +54,7 @@ h2 {
   position: absolute;
   background: #111;
   border-radius: 10px;
-  border: 1px solid red;
+  border: 3px solid green;
   left: 60px;
   right: 60px;
   bottom: 80px;
@@ -92,16 +98,18 @@ h2 {
   align-self:  flex-end;
 }
 
-  .glass_header {
-    color: white;
-    text-align: center;
-    font-size: 50px;
-    margin-bottom:10px;
-    font-family: Codystar;
-  }
+.glass_header {
+  position: relative;
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  margin-bottom:10px;
+  font-family: Codystar;
+}
 
 .glass_bottom
 {
+  position: relative;
   height: 30px;
   width: 100px;
   background-color: lightgray;
@@ -112,6 +120,7 @@ h2 {
 
 .glass_middle
 {
+  position: relative;
   height: 1px;
   width: 100px;
   background-color: green;
@@ -120,6 +129,7 @@ h2 {
 }
 .glass_top
 {
+  position: relative;
   height: 10px;
   width: 100px;
   border-left: 3px solid lightgray;
@@ -127,12 +137,26 @@ h2 {
   border-right: 3px solid  lightgray;
 }
 .glass_name{
+  position: relative;
   text-align: center;
   padding-top:5px;
   color: white;
   line-height: 20px;
   height: 50px;
   font-size: 20px;
+}
+
+.bottom_text
+{
+  display: none;
+  width: 100px;
+  position: absolute;
+  bottom: 0;
+  font-size:50px;
+  text-align: center;
+  font-weight: bold;
+  color: #eee;
+  -webkit-text-stroke: 3px #333;
 }
 
 #configDialog

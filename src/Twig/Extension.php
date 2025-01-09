@@ -17,7 +17,7 @@ class Extension extends AbstractExtension
     public function formatHeight(int $number): string
     {
         
-        $number = $number * 8;
+        $number = $number * 4;
 
         return strval($number);
     }

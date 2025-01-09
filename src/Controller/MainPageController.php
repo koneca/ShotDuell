@@ -20,7 +20,7 @@ class MainPageController extends AbstractController
     public function renderMainPage(EntityManagerInterface $em): Response
     {
         $repository = $em->getRepository(ShotsTeam::class);
-        $teams = $repository->findAllOrdered();
+        $teams = $repository->findAll();
 
 	// shorten teamnames
 	$count = 0;
@@ -28,7 +28,7 @@ class MainPageController extends AbstractController
     
     foreach($teams as $team)
 	{
-	    if($count == 9)
+	    if($count == 10)
 	    {
 		break;
 	    }

@@ -103,7 +103,7 @@ class ChartController extends AbstractController
             array_push($result, $teamArray);
         } 
 
-       // var_dump($result);
+       //var_dump($result);
 
         return $result;
     }

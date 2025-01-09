@@ -16,7 +16,7 @@ $(document).ready(function() {
     }).done(function(data) {
 	if(! document.URL.includes("barView"))
 	{
-           $(middle).css('height', middle.clientHeight + 8);
+           $(middle).css('height', middle.clientHeight + 4);
 	}
         var shots = Number($(header).html());
         shots ++;
@@ -29,6 +29,7 @@ $(document).ready(function() {
   
   if(document.URL.includes("newTeam") ||
       document.URL.includes("chart"))
+//      document.URL.includes("barView"))
   {
     console.log("not main page. Do not reload");
     return;
@@ -49,20 +50,46 @@ function updateTeams(data)
   // console.log(data);
   
   var recCount = Object.keys(data).length;
-  var actCount = $('[id^="scoreHeight_team_"]').length;
-  
-  if(recCount != actCount)
+  var dispTeams = $('[id^="scoreHeight_team_"]');
+  var actCount = dispTeams.length;
+
+  console.log("asasas: " + recCount + " / " + actCount);
+
+  if(! (document.URL.includes("newTeam") ||
+      document.URL.includes("chart") ||
+      document.URL.includes("barView")) &&
+      recCount > 10)
   {
-    location.reload();
+     recCount = 10;
   }
 
-  for( let team in data)
+  if(recCount != actCount)
   {
-    if(data.hasOwnProperty(team))
+    console.log("anzahl geandert? "+ recCount + " / " + actCount)
+    location.reload();
+    return;
+  }
+
+  if(! document.URL.includes("barView"))
+  {
+    for( let i = 0; i < recCount; i++)
     {
-      renderTeamHeight(team, data[team]);
+      var team = data[i];
+      var id = Number($(dispTeams[i]).attr('id').substring(17));
+      if(Number(team[0]) != id)
+      {
+        console.log("position geandert: " + team[0] + " / " + id);
+        location.reload();
+	      return;
+      }
     }
   }
+  for(let i = 0; 1 < recCount; i++)
+  {
+    var team = data[i];
+    renderTeamHeight(team[0], team[1]);
+  }
+ 
   //scoreHeight_team_{{ team.id }}
 }
 
@@ -71,13 +98,14 @@ function renderTeamHeight(team, cnt)
   var item = $("#scoreHeight_team_" + team);
   if(! document.URL.includes("barView"))
   {
-  	item.css("height", Number(cnt)* 8);
-  }
-  if(0 == item.length)
-  {
-    console.log("New team found: scoreHeight_team_" + team + " reloading!");
-    location.reload();
-    return;
+  	item.css("height", Number(cnt)* 4);
+	if(Number(cnt) > 190)
+	 {
+	    $("#score_team_" + team).hide();
+	    var inner = item.children().first();
+            inner.html(Number(cnt));
+ 	    inner.show();       
+	 }
   }
   $("#score_team_" + team).html(cnt);
 }

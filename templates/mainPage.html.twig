@@ -2,11 +2,11 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Feuerwehr ShotsDuell{% endblock %}
+{% block title %}Schinzeguggis ShotsDuell{% endblock %}
 
 {% block body %}
 <div id="banner">
-<a href="{{ path('bar_view')}}"><img src="{{ asset('images/Banner.png') }}" height="120"></a>
+<a href="{{ path('bar_view')}}"><img src="{{ asset('images/schinzeguggis.png') }}" height="120"></a>
 </div>
 <div id="wrapper">
     <div id="bars_container">
@@ -15,7 +15,9 @@
         <div>
             <div class="glass_header" id="score_team_{{ team.id }}">{{team.shotsCount}}</div>
             <div class="glass_top"></div>
-            <div id="scoreHeight_team_{{ team.id }}" class="glass_middle" style="height: {{ team.shotsCount|genHeight() }}px; background-color: {{ team.color}}"></div>
+            <div id="scoreHeight_team_{{ team.id }}" class="glass_middle" style="height: {{ team.shotsCount|genHeight() }}px; background-color: {{ team.color}}">
+	    <span class="bottom_text">{{team.shotsCount}}</span>
+	    </div>
             <div class="glass_bottom"></div>
             <div class="glass_name">{{ team.teamName|raw }}</div>
             </div>
@@ -29,7 +31,7 @@
     </div>
     <div id="right">
       <a href="{{ path('new_team') }}">
-        <img src="{{ asset('images/feuerwehrman_dabb.png') }}" height="300">
+        <img src="{{ asset('images/schinzeguggi.png') }}" height="300">
       </a>
     </div>
 </div>
