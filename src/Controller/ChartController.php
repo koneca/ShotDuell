@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\UX\Chartjs\Model\Chart;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\ShotsStatistics;
@@ -22,7 +22,7 @@ class ChartController extends AbstractController
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 
         $chart->setData([
-            // 'labels' => $labels,
+            'labels' => ['Date', 'Count'],
             'datasets' => $data]);
 
         $chart->setOptions([
@@ -57,16 +57,16 @@ class ChartController extends AbstractController
                     ],
                 ],
             ],
-            'plugins' => [
-                'legend' => [
-                    'labels' => [
-                        'font' => [
-                            'size' => 24,
-                        ],
-                        ['color' => 'white'],
-                    ],
-                ],
-            ],
+            // 'plugins' => [
+            //     'legend' => [
+            //         'labels' => [
+            //             'font' => [
+            //                 'size' => 24,
+            //             ],
+            //             ['color' => 'white'],
+            //         ],
+            //     ],
+            // ],
         ]);
 
         return $this->render('chartShow.html.twig', [
